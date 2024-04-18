@@ -13,20 +13,23 @@
 
 @section('content')
 
-
+@if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
+@endif
 <div class="card">
     <div class="card-body">
         {{ html()->form('POST')->route('admin.Restaurante.store')->open() }}
 
         <div class="form-group">
-            {{ html()->label('nombre')->for('nombre') }}
+            {{ html()->label('Nombre')->for('nombre') }}
             {{ html()->text('nombre')->class('form-control')->placeholder('Introduce the name of the restaurante') }}
             
             @error('nombre')
             <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
-        
 
         {{html()->submit('Create restaurante')->class('btn btn-primary')}}
         {{ html()->form()->close() }}
@@ -34,4 +37,4 @@
 </div>
 @stop
 
-@vite('resources/js/slug_generator.js')
+@vite('resources/js/gmail.js')

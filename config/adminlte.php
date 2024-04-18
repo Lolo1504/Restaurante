@@ -258,7 +258,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => '/',
+    'dashboard_url' => '/carta',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -316,11 +316,17 @@ return [
             'route' => 'admin.dishes.index',
             'icon' => 'fas fa-hamburger',
         ],
+
         [
             'text' => 'Restaurantes',
             'route'  => 'admin.Restaurante.index',
             'icon' => 'fab fa-fw fa-buffer'
         ],
+        [
+            'text' =>'usuario',
+             'route' => 'admin.usuario.index',
+             'icon' => 'fab fa-fw fa-buffer'
+        ]
     ],
 
     /*

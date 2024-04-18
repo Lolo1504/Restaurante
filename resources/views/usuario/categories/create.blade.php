@@ -1,28 +1,32 @@
 
 
 @extends('adminlte::page')
-
 @section('title', 'Barbarrosa')
 
 @section('content_header')
-	<h1>Edit category</h1>
+<h1>Create category</h1>
+@stop
+
+@section('content_header')
+<h1>Crear nueva categoría</h1>
 @stop
 
 @section('content')
 
 @if (session('info'))
-        <div class="alert alert-success">
-            <strong>{{ session('info') }}</strong>
-        </div>
+<div class="alert alert-danger">
+    <strong>{{ session('info') }}</strong>
+</div>
 @endif
 
 <div class="card">
     <div class="card-body">
-        {{ html()->modelForm($category, 'PUT')->route('admin.categories.update' ,$category)->open() }}
+        {{ html()->form('POST')->route('admin.categories.store')->open() }}
 
         <div class="form-group">
             {{ html()->label('Name')->for('name') }}
             {{ html()->text('name')->class('form-control')->placeholder('Introduce the name of the category') }}
+            
             @error('name')
             <span class="text-danger">{{ $message }}</span>
             @enderror
@@ -33,6 +37,7 @@
             @error('slug')
             <span class="text-danger">{{ $message }}</span>
             @enderror
+            
         </div>
         <div class="form-group">
             {{ html()->label('Description')->for('description') }}
@@ -40,15 +45,21 @@
             
             @error('description')
             <span class="text-danger">{{ $message }}</span>
-            @enderror 
+            @enderror
+        </div>  
+        <div class="form-group">
+            <label for="restauranteId">Restaurante</label>
+            <select name="restauranteId" id="restauranteId" class="form-control" required>
+                @foreach ($restaurantes as $restaurante)
+                    <option value="{{ $restaurante->id }}">{{ $restaurante['nombre'] }}</option>
+                @endforeach
+            </select>
         </div>
-       <div class="form-group">  
-        {{ html()->submit('Update category')->class('btn btn-primary') }}
+        
+
+        {{html()->submit('Create category')->class('btn btn-primary')}}
+        {{ html()->form()->close() }}
     </div>
-      
-        {{ html()->closeModelForm() }} 
-    </div>
-   
 </div>
 @stop
 

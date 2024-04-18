@@ -10,6 +10,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/collapsable.js',
                 'resources/js/slug_generator.js',
+                'resources/js/gmail.js',
+                'resources/js/email.js' 
             ],
             refresh: true,
         }),

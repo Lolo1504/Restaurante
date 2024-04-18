@@ -30,9 +30,8 @@ class DishRequest extends FormRequest
             'price' => 'required',
             'category_id' => 'required',
         ];
-        if ($dish) {
-            $rules['slug'] =  'required|unique:dishes,slug,'.$dish->id;
-        }
+       
+        
         
         return $rules;
     }

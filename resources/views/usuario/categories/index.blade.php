@@ -6,9 +6,9 @@
 
 @section('content_header')
 
-<a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.Restaurante.create') }}">Add restaurante</a>
+<a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.categories.create') }}">Add category</a>
 
-<h1>restaurante list</h1>
+<h1>Category list</h1>
 @stop
 
 @section('content')
@@ -18,37 +18,32 @@
     <strong>{{ session('info') }}</strong>
 </div>
 @endif
-@if (session('Nper'))
-<div class="alert alert-danger">
-    <strong>{{session('Nper')}}</strong>
-</div>
-@endif
+
 <div class="card">
     
     <div class="card-body">
-        @if (!$restaurantes->isEmpty())
+        @if (!$categories->isEmpty())
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>nombre</th>
-                    <th colspan="3"></th>
+                    <th>Name</th>
+                   
+                    <th colspan="2"></th>
                 </tr>
             </thead>
-            <tbody id="restaurante">
-                @foreach ($restaurantes as $restaurante)
-                <tr class="handle" data-id={{$restaurante->id}}>
-                    <td>{{ $restaurante->id }}</td>
-                    <td>{{ $restaurante->nombre }}</td>
+            <tbody id="category">
+                @foreach ($categories as $category)
+                <tr class="handle" data-id={{$category->id}}>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
+                  
                     <td width="10px">
-                        <a href="{{route('admin.Restaurante.show',$restaurante)}}" > Ver</a>
-                    </td>
-                    <td width="10px">
-                        <a href="{{ route('admin.Restaurante.edit',$restaurante) }}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{{ route('admin.categories.edit',$category) }}" class="btn btn-primary btn-sm">Edit</a>
                     </td>
                     <td width="10px">
 
-                        <form action="{{ route('admin.Restaurante.destroy',$restaurante) }}" method="POST">
+                        <form action="{{ route('admin.categories.destroy',$category) }}" method="POST">
                             @method('delete')
                             @csrf
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

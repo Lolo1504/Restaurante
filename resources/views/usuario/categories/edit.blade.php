@@ -18,7 +18,7 @@
 
 <div class="card">
     <div class="card-body">
-        {{ html()->modelForm($category, 'PUT')->route('admin.categories.update' ,$category)->open() }}
+        {{ html()->modelForm($category, 'PUT')->route('admin.categories.update',$category)->open() }}
 
         <div class="form-group">
             {{ html()->label('Name')->for('name') }}
@@ -42,11 +42,17 @@
             <span class="text-danger">{{ $message }}</span>
             @enderror 
         </div>
-       <div class="form-group">  
-        {{ html()->submit('Update category')->class('btn btn-primary') }}
+            <div class="form-group">
+        <label for="restaurante_id">Restaurante</label>
+        <select name="restaurante_id" id="restaurante_id" class="form-control" required>
+            @foreach ($restaurantes as $restaurante)
+                <option value="{{ $restaurante->id }}">{{ $restaurante->nombre }}</option>
+            @endforeach
+        </select>
     </div>
-      
-        {{ html()->closeModelForm() }} 
+        
+        {{html()->submit('Update category')->class('btn btn-primary')}}
+        {{ html()->closeModelForm() }}
     </div>
    
 </div>

@@ -17,15 +17,16 @@
 
 <div class="card">
     <div class="card-body">
-        {{ html()->modelForm($restaurante, 'PUT')->route('admin.restaurante.update',$restaurante)->open() }}
+        {{ html()->modelForm($Restaurante, 'PUT')->route('admin.Restaurante.update',$Restaurante)->open() }}
 
         <div class="form-group">
-            {{ html()->label('Name')->for('name') }}
-            {{ html()->text('name')->class('form-control')->placeholder('Introduce the name of the restaurante') }}
+            {{ html()->label('nombre')->for('nombre') }}
+            {{ html()->text('nombre')->class('form-control')->placeholder('Introduce the name of the restaurante') }}
             @error('name')
             <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
+        {{html()->submit('Update restaurante')->class('btn btn-primary')}}
     </div>
 </div>
 @stop

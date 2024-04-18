@@ -4,28 +4,52 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DishRequest;
+use App\Models\User;
 use App\Models\Allergen;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Restaurante;
+use Illuminate\Support\Facades\Auth;
 
 class DishController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::orderBy("position", "asc")->get();;
+        $user = auth::user();
+        if($user->IdRestaurante)
+        {
+            $dishes = Dish::select('dishes.id','dishes.name','dishes.slug','dishes.traduction','dishes.price','dishes.position','dishes.category_id')
+            ->orderBy("dishes.position", "asc")
+            ->join('categories as cat','cat.id','=','dishes.category_id')
+            ->where('cat.restauranteId','=',$user->IdRestaurante)
+            ->get();   
+        }
+        else{
+            $dishes = Dish::select('dishes.id','dishes.name','dishes.slug','dishes.traduction','dishes.price','dishes.position','dishes.category_id')
+        ->orderBy("dishes.position", "asc")
+        ->join('categories as cat','cat.id','=','dishes.category_id')
+        ->get();
+        }
         return view('admin.dishes.index', compact('dishes'));
     }
 
     public function create()
     {
-        $categories = restaurante::join( 'categories as cat' ,'cat.restauranteId','=','restaurantes.id'  ) ->select('restaurantes.id','restaurantes.nombre','cat.name','cat.id')->get();
+        
+        $user = auth::user();
+
+        $categories = restaurante::join( 'categories as cat' ,'cat.restauranteId','=','restaurantes.id'  ) 
+        ->select('restaurantes.id','restaurantes.nombre','cat.name','cat.id')
+        ->where('restaurantes.id','=', $user->IdRestaurante)
+        ->get();
         $allergens = Allergen::all();
+      
         return view('admin.dishes.create', compact('categories', 'allergens'));
     }
 
     public function store(DishRequest $request, Dish $dish)
     {
+        
         $slug = $request->slug;
 
         $slug = $this->generateUniqueSlug($slug);
@@ -44,8 +68,11 @@ class DishController extends Controller
 
     public function edit(Dish $dish)
     {
+        $user = auth::user();
+
         $categories = restaurante::join( 'categories as cat' ,'cat.restauranteId','=','restaurantes.id'  ) 
                                    ->select('restaurantes.id','restaurantes.nombre','cat.name','cat.id')
+                                   ->where('cat.restauranteId','=',$user->IdRestaurante)
                                    ->get();
 
         $allergens = Allergen::all();
@@ -54,6 +81,7 @@ class DishController extends Controller
 
     public function update(DishRequest $request, Dish $dish)
     {
+        
         $slug = $request->slug;
 
         if ($request->slug!=$dish->slug) {

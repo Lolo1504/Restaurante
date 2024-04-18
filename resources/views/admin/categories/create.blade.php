@@ -47,16 +47,9 @@
             <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>  
-        <div class="form-group">
-            <label for="restauranteId">Restaurante</label>
-            <select name="restauranteId" id="restauranteId" class="form-control" required>
-                @foreach ($restaurantes as $restaurante)
-                    <option value="{{ $restaurante->id }}">{{ $restaurante['nombre'] }}</option>
-                @endforeach
-            </select>
-        </div>
+      
         
-
+        
         {{html()->submit('Create category')->class('btn btn-primary')}}
         {{ html()->form()->close() }}
     </div>

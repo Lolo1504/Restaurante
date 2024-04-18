@@ -28,7 +28,7 @@ class RestauranteRequest extends FormRequest
             
         ];
         if ($Restaurante) {
-            $rules['nombre'] =  'required|unique:categories,nombre,'.$Restaurante->id;
+            $rules['nombre'] =  'required|unique:Restaurantes,nombre,'.$Restaurante->id;
         }
         
         return $rules;

@@ -35,13 +35,14 @@
                     <td>{{ $dish->id }}</td>
                     <td>{{ $dish->name }}</td>
                     <td width="10px">
+                        
                         <a href="{{ route('admin.dishes.edit',$dish) }}" class="btn btn-primary btn-sm">Edit</a>
                     </td>
                     <td width="10px">
 
                         <form action="{{ route('admin.dishes.destroy',$dish) }}" method="POST">
                             @method('delete')
-                            @csrf
+                              @csrf
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </td>

@@ -26,11 +26,9 @@ class CategoryRequest extends FormRequest
         $rules = [
             'name' => 'required',
             'slug' => 'required',
-            'restauranteId' => 'required'
+            
         ];
-        if ($category) {
-            $rules['slug'] =  'required'.$category->id;
-        }
+        
         
         return $rules;
     }

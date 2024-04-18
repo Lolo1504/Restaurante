@@ -80,8 +80,7 @@
             <div class="form-group">
         {{html()->submit('Update dish')->class('btn btn-primary')}}
             </div>
-            {{ html()->closeModelForm() }}
-       
+        {{ html()->closeModelForm() }}
     </div>
 </div>
 @stop
